@@ -8,7 +8,7 @@ const description = reactive([
   {
     imgUrl: 'https://picsum.photos/800/400?1',
     text: '1993年在日本誕生首家Mo-Mo-Paradise壽喜燒・鍋物專賣店，2003年引進台灣，以『創造顧客最美好用餐體驗』為信念價値，採無限量供應方式，提供專業的日式服務與湯頭。在全球8個城市擁有超過40間分店。',
-    title: 'JOJO創造美好體驗。',
+    title: 'MOMO創造美好體驗。',
     isShow: false
   },
   {
@@ -30,6 +30,14 @@ const description = reactive([
     isShow: false
   }
 ])
+
+const foodItems = [
+  {
+    imgUrl: 'https://picsum.photos/800/400?4',
+    price: '449元 / 每位',
+    title: '單湯底'
+  }
+]
 
 const viewport = reactive({
   height: window.innerHeight ?? document.documentElement.clientHeight,
@@ -78,11 +86,23 @@ onBeforeUnmount(() => {
   <Feature v-if="viewport.width > 996" :description="description" />
 
   <main>
-    <section class="hot_item">
+    <section>
       <div class="title">
-        <h3 :class="{ show: scrolledStatus.isFirstTitle }">熱銷品項</h3>
+        <h3 :class="{ show: scrolledStatus.isFirstTitle }">平日午餐</h3>
       </div>
       <div class="container">
+        <div class="circle_wrapper">
+          <img src="https://picsum.photos/300/300" alt="鍋物品項圖片" />
+        </div>
+        <div class="info">
+          <p>平日16:00前進場</p>
+          <p>單湯底</p>
+          <p>449元 / 每位</p>
+          <RouterLink :to="'/'">More</RouterLink>
+        </div>
+      </div>
+
+      <!-- <div class="container">
         <div>
           <p></p>
           <ul>
@@ -100,7 +120,7 @@ onBeforeUnmount(() => {
           </p>
           <button>立即下單</button>
         </div>
-      </div>
+      </div> -->
     </section>
     <section>
       <div class="title">
@@ -159,85 +179,100 @@ main section {
       transition: all 1.3s ease-in-out;
     }
   }
-}
 
-.hot_item .container {
-  display: flex;
-  justify-content: center;
-  padding: 28px 0;
-  .circle_wrapper {
-    margin-right: 40px;
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
-    overflow: hidden;
+  .container {
+    height: 600px;
 
-    img {
-      object-fit: cover;
-    }
-  }
+    .circle_wrapper {
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      overflow: hidden;
 
-  .content {
-    width: 20%;
-    align-self: center;
-
-    h4 {
-      margin-bottom: 24px;
-      font-size: 37px;
-      font-weight: bold;
-      color: #ca4e52;
-    }
-
-    p {
-      margin-bottom: 24px;
-
-      &:nth-child(2) {
-        font-size: 20px;
-        margin-bottom: 24px;
-      }
-      &:nth-child(3) {
-        font-size: 13px;
-        font-weight: normal;
-        letter-spacing: 1px;
-        line-height: 1.3;
-      }
-    }
-
-    button {
-      border: none;
-      outline: none;
-      padding: 12px;
-      border-radius: 4px;
-      background: #000;
-      color: #fff;
-      font-size: 16px;
-      cursor: pointer;
-
-      &:hover {
-        animation: bounce 0.5s linear;
+      img {
+        object-fit: cover;
       }
     }
   }
 }
 
-@keyframes bounce {
-  0% {
-    transform: scale(1);
-  }
-  15% {
-    transform: scale(1.2);
-  }
-  35% {
-    transform: scale(0.8);
-  }
-  65% {
-    transform: scale(1.1);
-  }
-  90% {
-    transform: scale(0.9);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
+// .hot_item .container {
+//   display: flex;
+//   justify-content: center;
+//   padding: 28px 0;
+//   .circle_wrapper {
+//     margin-right: 40px;
+//     width: 300px;
+//     height: 300px;
+//     border-radius: 50%;
+//     overflow: hidden;
+
+//     img {
+//       object-fit: cover;
+//     }
+//   }
+
+//   .content {
+//     width: 20%;
+//     align-self: center;
+
+//     h4 {
+//       margin-bottom: 24px;
+//       font-size: 37px;
+//       font-weight: bold;
+//       color: #ca4e52;
+//     }
+
+//     p {
+//       margin-bottom: 24px;
+
+//       &:nth-child(2) {
+//         font-size: 20px;
+//         margin-bottom: 24px;
+//       }
+//       &:nth-child(3) {
+//         font-size: 13px;
+//         font-weight: normal;
+//         letter-spacing: 1px;
+//         line-height: 1.3;
+//       }
+//     }
+
+//     button {
+//       border: none;
+//       outline: none;
+//       padding: 12px;
+//       border-radius: 4px;
+//       background: #000;
+//       color: #fff;
+//       font-size: 16px;
+//       cursor: pointer;
+
+//       &:hover {
+//         animation: bounce 0.5s linear;
+//       }
+//     }
+//   }
+// }
+
+// @keyframes bounce {
+//   0% {
+//     transform: scale(1);
+//   }
+//   15% {
+//     transform: scale(1.2);
+//   }
+//   35% {
+//     transform: scale(0.8);
+//   }
+//   65% {
+//     transform: scale(1.1);
+//   }
+//   90% {
+//     transform: scale(0.9);
+//   }
+//   100% {
+//     transform: scale(1);
+//   }
+// }
 </style>
