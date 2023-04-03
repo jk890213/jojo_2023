@@ -31,13 +31,21 @@ const description = reactive([
   }
 ])
 
-const foodItems = [
+const foodItems = reactive([
   {
-    imgUrl: 'https://picsum.photos/800/400?4',
-    price: '449元 / 每位',
-    title: '單湯底'
-  }
-]
+    imgUrl: "https://picsum.photos/380/380?1",
+    price: ['449', '元', '/ 每位'],
+    type: '單湯底',
+    period: '平日16:00前進場',
+    show: false
+  }, {
+    imgUrl: "https://picsum.photos/380/380?2",
+    price: ['499', '元', '/ 每位'],
+    type: '雙湯底',
+    period: '平日16:00前進場',
+    show: false
+  },
+])
 
 const viewport = reactive({
   height: window.innerHeight ?? document.documentElement.clientHeight,
@@ -68,6 +76,10 @@ const checkScrolledStatus = () => {
   if (scrollDistance > featureSectionHeight * 3) description[3].isShow = true
 
   if (scrollDistance > featureSectionHeight * 4) scrolledStatus.isFirstTitle = true
+  if (scrollDistance > featureSectionHeight * 4 + 480) {
+    foodItems[0].show = true
+    foodItems[1].show = true
+  }
 }
 
 onMounted(() => {
@@ -91,36 +103,28 @@ onBeforeUnmount(() => {
         <h3 :class="{ show: scrolledStatus.isFirstTitle }">平日午餐</h3>
       </div>
       <div class="container">
-        <div class="circle_wrapper">
-          <img src="https://picsum.photos/300/300" alt="鍋物品項圖片" />
-        </div>
-        <div class="info">
-          <p>平日16:00前進場</p>
-          <p>單湯底</p>
-          <p>449元 / 每位</p>
-          <RouterLink :to="'/'">More</RouterLink>
+        <div class="food_item" v-for="{ type, imgUrl, period, price, show } in foodItems" :key="type">
+          <div class="circle_wrapper" :class="{ show }">
+            <img :src="imgUrl" alt="鍋物品項圖片" />
+          </div>
+          <div class="info">
+            <div>
+              <span>{{ period }}</span>
+            </div>
+            <div>
+              <span>{{ type }}</span>
+              <div>
+                <span v-for="text in price" :key="text">
+                  {{ text }}
+                </span>
+              </div>
+              <div>
+                <RouterLink :to="'/'">More</RouterLink>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-
-      <!-- <div class="container">
-        <div>
-          <p></p>
-          <ul>
-            <li></li>
-          </ul>
-        </div>
-        <div class="circle_wrapper">
-          <img src="https://picsum.photos/300/300" alt="熱銷品項圖片" />
-        </div>
-        <div class="content">
-          <h4>幸福龍眼蜜</h4>
-          <p>享用甜蜜，擠出創意</p>
-          <p>
-            採專利的特色擠壓瓶，讓您享受甜蜜的同時，不沾染您的纖手，立即享用簡單方便的甜蜜。每個細節都為您想好，最用心、最健康的蜂蜜單品，獻給您最珍視的人。
-          </p>
-          <button>立即下單</button>
-        </div>
-      </div> -->
     </section>
     <section>
       <div class="title">
@@ -131,13 +135,20 @@ onBeforeUnmount(() => {
 </template>
 
 <style lang="scss" scoped>
+$foodImgSize: 380px;
+
 main section {
+  padding-top: 20px;
+  background: linear-gradient(to bottom, #c7b299, #c7b299 20px, #fff 20px, #fff 100%);
+
   &:nth-child(1) .title {
     background-image: url('https://picsum.photos/1200/1200?1');
   }
+
   &:nth-child(2) .title {
     background-image: url('https://picsum.photos/1200/1200?2');
   }
+
   &:nth-child(3) .title {
     background-image: url('https://picsum.photos/1200/1200?3');
   }
@@ -165,6 +176,7 @@ main section {
       top: 50%;
       opacity: 1;
     }
+
     h3 {
       position: absolute;
       top: -1px;
@@ -182,97 +194,84 @@ main section {
 
   .container {
     height: 600px;
+    display: flex;
+    justify-content: space-around;
 
-    .circle_wrapper {
-      width: 300px;
-      height: 300px;
-      border-radius: 50%;
-      overflow: hidden;
+    .food_item {
+      transform: translateY(-100px);
 
-      img {
-        object-fit: cover;
+      .circle_wrapper {
+        width: $foodImgSize;
+        height: $foodImgSize;
+        border-radius: 50%;
+        overflow: hidden;
+        transform: translateY(160px);
+        opacity: 0;
+        transition: all 1.3s ease-in-out;
+
+        img {
+          object-fit: cover;
+        }
+      }
+
+      .circle_wrapper.show {
+        transform: translateY(40px);
+        opacity: 1;
+      }
+
+      .info {
+        width: $foodImgSize;
+        border: 1px solid #c7b299;
+        position: relative;
+        z-index: 1;
+
+        >div {
+          padding: 20px;
+
+          &:first-child {
+            background: #c7b299;
+
+            span {
+              padding-bottom: 4px;
+              border-bottom: 1px solid #fff;
+              color: #fff;
+              font-size: 24px;
+            }
+          }
+
+          &:nth-child(2) {
+            background: #fff;
+
+            >span {
+              color: #c1272d;
+              font-size: 24px;
+            }
+
+            >div {
+              padding-top: 20px;
+
+              >span {
+                &:first-child {
+                  font-size: 72px;
+                }
+
+                &:nth-child(2) {
+                  font-size: 24px;
+                }
+              }
+
+              &:last-child {
+                text-align: end;
+
+                a {
+                  color: #a9272d;
+                }
+              }
+            }
+          }
+        }
       }
     }
   }
 }
-
-// .hot_item .container {
-//   display: flex;
-//   justify-content: center;
-//   padding: 28px 0;
-//   .circle_wrapper {
-//     margin-right: 40px;
-//     width: 300px;
-//     height: 300px;
-//     border-radius: 50%;
-//     overflow: hidden;
-
-//     img {
-//       object-fit: cover;
-//     }
-//   }
-
-//   .content {
-//     width: 20%;
-//     align-self: center;
-
-//     h4 {
-//       margin-bottom: 24px;
-//       font-size: 37px;
-//       font-weight: bold;
-//       color: #ca4e52;
-//     }
-
-//     p {
-//       margin-bottom: 24px;
-
-//       &:nth-child(2) {
-//         font-size: 20px;
-//         margin-bottom: 24px;
-//       }
-//       &:nth-child(3) {
-//         font-size: 13px;
-//         font-weight: normal;
-//         letter-spacing: 1px;
-//         line-height: 1.3;
-//       }
-//     }
-
-//     button {
-//       border: none;
-//       outline: none;
-//       padding: 12px;
-//       border-radius: 4px;
-//       background: #000;
-//       color: #fff;
-//       font-size: 16px;
-//       cursor: pointer;
-
-//       &:hover {
-//         animation: bounce 0.5s linear;
-//       }
-//     }
-//   }
-// }
-
-// @keyframes bounce {
-//   0% {
-//     transform: scale(1);
-//   }
-//   15% {
-//     transform: scale(1.2);
-//   }
-//   35% {
-//     transform: scale(0.8);
-//   }
-//   65% {
-//     transform: scale(1.1);
-//   }
-//   90% {
-//     transform: scale(0.9);
-//   }
-//   100% {
-//     transform: scale(1);
-//   }
-// }
 </style>
