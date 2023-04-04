@@ -17,14 +17,22 @@
 
 <script setup lang="ts">
 import videoBanner from '@/assets/food_banner.mp4'
+import { computed, ref, watch } from 'vue';
 
-defineProps({
-  isScrolledPastViewport: {
-    type: Boolean,
+const props = defineProps({
+  viewportHeight: {
+    type: Number,
     required: true
-  }
+  },
+  scrolledDistance: {
+    type: Number,
+    required: true
+  },
 })
 
+const isScrolledPastViewport = ref(false)
+const navHeight = 56
+const bannerHeight = computed(() => props.viewportHeight - navHeight)
 const nav = [
   { routeName: '', title: '關於我們' },
   { routeName: '', title: '最新消息' },
@@ -32,6 +40,11 @@ const nav = [
   { routeName: '', title: '聯絡我們' },
   { routeName: '', title: '會員中心' }
 ]
+
+
+watch(() => props.scrolledDistance, () => {
+  isScrolledPastViewport.value = props.scrolledDistance > bannerHeight.value
+})
 </script>
 
 <style lang="scss" scoped>
