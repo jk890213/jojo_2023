@@ -12,6 +12,11 @@
     <!-- <nav aria-label="mobile_nav">
       <RouterLink to="/">Home</RouterLink>
     </nav> -->
+    <p>
+      <span>仿製</span>
+      <span>MOMO 壽喜燒</span>
+      <span>官方品牌網站</span>
+    </p>
   </header>
 </template>
 
@@ -98,6 +103,21 @@ header {
   nav[aria-label='pc_nav'].top {
     position: fixed;
     top: 0;
+  }
+
+  p {
+    width: 30%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 72px;
+    line-height: 1.5;
+    text-align: center;
+    transform: translate(-50%, -50%);
   }
 }
 </style>

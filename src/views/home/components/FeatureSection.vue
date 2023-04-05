@@ -6,9 +6,11 @@
       <div class="pic">
         <img :src="imgUrl" alt="特色圖片" />
       </div>
-      <div class="content">
-        <h3>{{ title }}</h3>
-        <p>{{ text }}</p>
+      <div class="container">
+        <div class="content">
+          <h3>{{ title }}</h3>
+          <p>{{ text }}</p>
+        </div>
       </div>
     </div>
   </section>
@@ -67,6 +69,18 @@ watch(() => props.scrolledDistance, () => {
 section {
   .item.show {
     opacity: 1;
+
+    .container .content {
+      opacity: 1;
+    }
+
+    &:nth-child(odd) .container .content {
+      left: 50%;
+    }
+
+    &:nth-child(even) .container .content {
+      right: 50%;
+    }
   }
 
   .item {
@@ -90,35 +104,54 @@ section {
       }
     }
 
-    .content {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 0 60px;
+    .container {
       width: 40%;
+      position: relative;
 
-      h3 {
-        padding-bottom: 4px;
-        font-size: 28px;
-        margin-bottom: 28px;
-        position: relative;
+      .content {
+        width: 100%;
+        padding: 0 60px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 50%;
+        opacity: 1;
+        transition: all 1.6s;
 
-        &::after {
-          content: '';
-          height: 1px;
-          position: absolute;
-          left: 0;
-          right: 28px;
-          bottom: -4px;
-          background: #000;
+        h3 {
+          padding-bottom: 4px;
+          font-size: 28px;
+          margin-bottom: 28px;
+          position: relative;
+
+          &::after {
+            content: '';
+            height: 1px;
+            position: absolute;
+            left: 0;
+            right: 28px;
+            bottom: -4px;
+            background: #000;
+          }
+        }
+
+        p {
+          font-size: 13px;
+          line-height: 1.7;
         }
       }
+    }
 
-      p {
-        font-size: 13px;
-        line-height: 1.7;
-      }
+    &:nth-child(odd) .container .content {
+      left: 80%;
+      transform: translate(-50%, -50%);
+    }
+
+    &:nth-child(even) .container .content {
+      right: 80%;
+      transform: translate(50%, -50%);
     }
   }
 }
