@@ -3,6 +3,8 @@
 import VideoBanner from './components/VideoBanner.vue'
 import FeatureSection from './components/FeatureSection.vue'
 import FoodSection from './components/FoodSection.vue'
+import LatestNews from './components/LatestNews.vue'
+
 import { onBeforeUnmount, onMounted, reactive, ref } from 'vue'
 
 const viewport = reactive({
@@ -48,6 +50,8 @@ const mainScetionScrollDistanceStatus = {
       :titleSectionDistance="mainScetionScrollDistanceStatus.title"
       :contentSectionDistance="mainScetionScrollDistanceStatus.content" />
   </main>
+  <LatestNews :scrolledDistance="currentScrollDistance"
+    :showTitleDistance="mainScetionScrollDistanceStatus.begin + (mainScetionScrollDistanceStatus.title + mainScetionScrollDistanceStatus.content) * 2" />
 </template>
 
 <style lang="scss" scoped></style>

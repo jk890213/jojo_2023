@@ -106,146 +106,91 @@ watch(() => props.scrolledDistance, () => {
 
 
 <style lang="scss" scoped>
+@import "./_titleBackground.scss";
 $foodImgSize: 380px;
 
-main section {
-    padding-top: 20px;
-    background: linear-gradient(to bottom, #c7b299, #c7b299 20px, #fff 20px, #fff 100%);
+section .container {
+    height: 600px;
+    display: flex;
+    justify-content: center;
 
-    &:nth-child(1) .title {
-        background-image: url('https://picsum.photos/1200/1200?1');
-    }
+    .item {
+        padding: 0 88px;
+        transform: translateY(-100px);
 
-    &:nth-child(2) .title {
-        background-image: url('https://picsum.photos/1200/1200?2');
-    }
-
-    &:nth-child(3) .title {
-        background-image: url('https://picsum.photos/1200/1200?3');
-    }
-
-    .title {
-        height: 480px;
-        background-position: center center;
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-attachment: fixed;
-        position: relative;
-        overflow: hidden;
-
-        &::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            background: rgba(0, 0, 0, 0.3);
-        }
-
-        h3.show {
-            top: 50%;
-            opacity: 1;
-        }
-
-        h3 {
-            position: absolute;
-            top: -1px;
-            left: 50%;
+        .circle_wrapper {
+            width: $foodImgSize;
+            height: $foodImgSize;
+            border-radius: 50%;
+            overflow: hidden;
+            transform: translateY(160px);
             opacity: 0;
-            transform: translate(-50%, -50%);
-            font-size: 60px;
-            letter-spacing: 40px;
-            color: #fff;
+
+            img {
+                object-fit: cover;
+            }
+        }
+
+        &:first-child {
+            .circle_wrapper.show {
+                animation: fadeIn 1.3s ease-out;
+                animation-fill-mode: forwards
+            }
+        }
+
+        &:last-child {
+            .circle_wrapper.show {
+                animation: fadeIn 1.3s ease-out 0.3s;
+                animation-fill-mode: forwards
+            }
+        }
+
+        .info {
+            width: $foodImgSize;
+            border: 1px solid $minorColor;
+            position: relative;
             z-index: 1;
 
-            transition: all 1.3s ease-in-out;
-        }
-    }
+            >div {
+                padding: 20px;
 
-    .container {
-        height: 600px;
-        display: flex;
-        justify-content: center;
+                &:first-child {
+                    background: $minorColor;
 
-        .item {
-            padding: 0 88px;
-            transform: translateY(-100px);
-
-            .circle_wrapper {
-                width: $foodImgSize;
-                height: $foodImgSize;
-                border-radius: 50%;
-                overflow: hidden;
-                transform: translateY(160px);
-                opacity: 0;
-
-                img {
-                    object-fit: cover;
+                    span {
+                        padding-bottom: 4px;
+                        border-bottom: 1px solid #fff;
+                        color: #fff;
+                        font-size: 24px;
+                    }
                 }
-            }
 
-            &:first-child {
-                .circle_wrapper.show {
-                    animation: fadeIn 1.3s ease-out;
-                    animation-fill-mode: forwards
-                }
-            }
+                &:nth-child(2) {
+                    background: #fff;
 
-            &:last-child {
-                .circle_wrapper.show {
-                    animation: fadeIn 1.3s ease-out 0.3s;
-                    animation-fill-mode: forwards
-                }
-            }
-
-            .info {
-                width: $foodImgSize;
-                border: 1px solid #c7b299;
-                position: relative;
-                z-index: 1;
-
-                >div {
-                    padding: 20px;
-
-                    &:first-child {
-                        background: #c7b299;
-
-                        span {
-                            padding-bottom: 4px;
-                            border-bottom: 1px solid #fff;
-                            color: #fff;
-                            font-size: 24px;
-                        }
+                    >span {
+                        color: $majorColor;
+                        font-size: 24px;
                     }
 
-                    &:nth-child(2) {
-                        background: #fff;
+                    >div {
+                        padding-top: 20px;
 
                         >span {
-                            color: #c1272d;
-                            font-size: 24px;
-                        }
-
-                        >div {
-                            padding-top: 20px;
-
-                            >span {
-                                &:first-child {
-                                    font-size: 72px;
-                                }
-
-                                &:nth-child(2) {
-                                    font-size: 24px;
-                                }
+                            &:first-child {
+                                font-size: 72px;
                             }
 
-                            &:last-child {
-                                text-align: end;
+                            &:nth-child(2) {
+                                font-size: 24px;
+                            }
+                        }
 
-                                a {
-                                    color: #a9272d;
-                                }
+                        &:last-child {
+                            text-align: end;
+
+                            a {
+                                color: #a9272d;
                             }
                         }
                     }
@@ -254,6 +199,7 @@ main section {
         }
     }
 }
+
 
 @keyframes fadeIn {
     0% {
