@@ -106,7 +106,6 @@ watch(() => props.scrolledDistance, () => {
 
 
 <style lang="scss" scoped>
-@import "./_titleBackground.scss";
 $foodImgSize: 380px;
 
 section .container {

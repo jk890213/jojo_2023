@@ -48,38 +48,34 @@ watch(() => props.scrolledDistance, () => {
         <div class="title">
             <h3 :class="{ show: news.title.show }">{{ news.title.text }}</h3>
         </div>
-        <div class="wrapper">
-            <div class="container">
-                <ul>
-                    <li v-for="{
-                        imgUrl,
-                        title,
-                        content,
-                        type,
-                        date
-                    } in news.items" :key="imgUrl">
-                        <div class="info">
-                            <div class="pic"><img :src="imgUrl" alt="消息說明圖片" /></div>
-                            <div class="text">
-                                <h4>{{ title }}</h4>
-                                <p>{{ content }}</p>
-                            </div>
+        <div class="container">
+            <ul>
+                <li v-for="{
+                    imgUrl,
+                    title,
+                    content,
+                    type,
+                    date
+                } in news.items" :key="imgUrl">
+                    <div class="info">
+                        <div class="pic"><img :src="imgUrl" alt="消息說明圖片" /></div>
+                        <div class="text">
+                            <h4>{{ title }}</h4>
+                            <p>{{ content }}</p>
                         </div>
-                        <div class="type">
-                            <div>{{ type }}</div>
-                            <div>{{ date }}</div>
-                        </div>
-                    </li>
-                </ul>
-                <RouterLink to="/">查看更多...</RouterLink>
-            </div>
+                    </div>
+                    <div class="type">
+                        <div>{{ type }}</div>
+                        <div>{{ date }}</div>
+                    </div>
+                </li>
+            </ul>
+            <RouterLink to="/">查看更多...</RouterLink>
         </div>
     </section>
 </template>
 
 <style lang="scss" scoped>
-@import "./_titleBackground.scss";
-
 .container {
     max-width: 1200px;
     margin: 120px auto;

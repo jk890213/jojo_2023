@@ -4,8 +4,8 @@ import VideoBanner from './components/VideoBanner.vue'
 import FeatureSection from './components/FeatureSection.vue'
 import FoodSection from './components/FoodSection.vue'
 import LatestNews from './components/LatestNews.vue'
-
-import { onBeforeUnmount, onMounted, reactive, ref } from 'vue'
+import StoreInfo from './components/StoreInfo.vue'
+import { computed, onBeforeUnmount, onMounted, reactive, ref } from 'vue'
 
 const viewport = reactive({
   height: window.innerHeight ?? document.documentElement.clientHeight,
@@ -34,11 +34,13 @@ onBeforeUnmount(() => {
 })
 
 const featureSectionScrollDistance = 350
-const mainScetionScrollDistanceStatus = {
+const foodScetionScrollDistanceStatus = {
   begin: featureSectionScrollDistance * 4,
   title: 500,
   content: 600
 }
+const newsScetionScrollDistance = computed(() => foodScetionScrollDistanceStatus.begin + (foodScetionScrollDistanceStatus.title + foodScetionScrollDistanceStatus.content) * 2)
+const storeInfoScetionScrollDistance = computed(() => newsScetionScrollDistance.value + 890)
 </script>
 
 <template>
@@ -46,12 +48,76 @@ const mainScetionScrollDistanceStatus = {
   <FeatureSection :singleSectionDistance="featureSectionScrollDistance" :scrolledDistance="currentScrollDistance"
     v-if="viewport.width > 996" />
   <main>
-    <FoodSection :scrolledDistance="currentScrollDistance" :beginDistance="mainScetionScrollDistanceStatus.begin"
-      :titleSectionDistance="mainScetionScrollDistanceStatus.title"
-      :contentSectionDistance="mainScetionScrollDistanceStatus.content" />
+    <FoodSection :scrolledDistance="currentScrollDistance" :beginDistance="foodScetionScrollDistanceStatus.begin"
+      :titleSectionDistance="foodScetionScrollDistanceStatus.title"
+      :contentSectionDistance="foodScetionScrollDistanceStatus.content" />
+    <LatestNews :scrolledDistance="currentScrollDistance" :showTitleDistance="newsScetionScrollDistance" />
+    <StoreInfo :scrolledDistance="currentScrollDistance" :showTitleDistance="storeInfoScetionScrollDistance" />
   </main>
-  <LatestNews :scrolledDistance="currentScrollDistance"
-    :showTitleDistance="mainScetionScrollDistanceStatus.begin + (mainScetionScrollDistanceStatus.title + mainScetionScrollDistanceStatus.content) * 2" />
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss">
+main section {
+  padding-top: 20px;
+  background: linear-gradient(to bottom, $minorColor, $minorColor 20px, #fff 20px, #fff 100%);
+
+  &:nth-child(1) .title {
+    background-image: url('https://picsum.photos/1200/1200?1');
+  }
+
+  &:nth-child(2) .title {
+    background-image: url('https://picsum.photos/1200/1200?2');
+  }
+
+  &:nth-child(3) .title {
+    background-image: url('https://picsum.photos/1200/1200?3');
+  }
+
+  &:nth-child(4) .title {
+    background-image: url('https://picsum.photos/1200/1200?4');
+  }
+
+  &:nth-child(5) .title {
+    background-image: url('https://picsum.photos/1200/1200?5');
+  }
+
+  .title {
+    height: 480px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    position: relative;
+    overflow: hidden;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background: rgba(0, 0, 0, 0.3);
+    }
+
+    h3.show {
+      top: 50%;
+      opacity: 1;
+    }
+
+    h3 {
+      position: absolute;
+      top: -1px;
+      left: 50%;
+      opacity: 0;
+      transform: translate(-50%, -50%);
+      font-size: 60px;
+      letter-spacing: 40px;
+      color: #fff;
+      z-index: 1;
+
+      transition: all 1.3s ease-in-out;
+    }
+  }
+}
+</style>
