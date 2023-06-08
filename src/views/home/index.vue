@@ -33,26 +33,43 @@ onBeforeUnmount(() => {
   window.addEventListener('resize', changeViewport)
 })
 
-const featureSectionScrollDistance = 350
+const featureSingleSectionHeigh = computed(() => (viewport.width <= 996 ? 0 : 350))
+const sectionTitleHeigh = computed(() => (viewport.width <= 996 ? 350 : 500))
+const foodContentHeigh = computed(() => (viewport.width <= 996 ? 1200 : 600))
+
 const foodScetionScrollDistanceStatus = {
-  begin: featureSectionScrollDistance * 4,
-  title: 500,
-  content: 600
+  begin: featureSingleSectionHeigh.value * 4
 }
-const newsScetionScrollDistance = computed(() => foodScetionScrollDistanceStatus.begin + (foodScetionScrollDistanceStatus.title + foodScetionScrollDistanceStatus.content) * 2)
+
+const newsScetionScrollDistance = computed(
+  () =>
+    foodScetionScrollDistanceStatus.begin + (sectionTitleHeigh.value + foodContentHeigh.value) * 2
+)
 const storeInfoScetionScrollDistance = computed(() => newsScetionScrollDistance.value + 890)
 </script>
 
 <template>
   <VideoBanner :scrolledDistance="currentScrollDistance" :viewportHeight="viewport.height" />
-  <FeatureSection :singleSectionDistance="featureSectionScrollDistance" :scrolledDistance="currentScrollDistance"
-    v-if="viewport.width > 996" />
+  <FeatureSection
+    :singleSectionDistance="featureSingleSectionHeigh"
+    :scrolledDistance="currentScrollDistance"
+    v-if="viewport.width > 996"
+  />
   <main>
-    <FoodSection :scrolledDistance="currentScrollDistance" :beginDistance="foodScetionScrollDistanceStatus.begin"
-      :titleSectionDistance="foodScetionScrollDistanceStatus.title"
-      :contentSectionDistance="foodScetionScrollDistanceStatus.content" />
-    <LatestNews :scrolledDistance="currentScrollDistance" :showTitleDistance="newsScetionScrollDistance" />
-    <StoreInfo :scrolledDistance="currentScrollDistance" :showTitleDistance="storeInfoScetionScrollDistance" />
+    <FoodSection
+      :scrolledDistance="currentScrollDistance"
+      :beginDistance="foodScetionScrollDistanceStatus.begin"
+      :titleSectionDistance="sectionTitleHeigh"
+      :contentSectionDistance="foodContentHeigh"
+    />
+    <LatestNews
+      :scrolledDistance="currentScrollDistance"
+      :showTitleDistance="newsScetionScrollDistance"
+    />
+    <StoreInfo
+      :scrolledDistance="currentScrollDistance"
+      :showTitleDistance="storeInfoScetionScrollDistance"
+    />
   </main>
 </template>
 
@@ -60,6 +77,11 @@ const storeInfoScetionScrollDistance = computed(() => newsScetionScrollDistance.
 main section {
   padding-top: 20px;
   background: linear-gradient(to bottom, $minorColor, $minorColor 20px, #fff 20px, #fff 100%);
+
+  @include desktops {
+    padding-top: 10px;
+    background: linear-gradient(to bottom, $minorColor, $minorColor 10px, #fff 10px, #fff 100%);
+  }
 
   &:nth-child(1) .title {
     background-image: url('https://picsum.photos/1200/1200?1');
@@ -90,6 +112,10 @@ main section {
     position: relative;
     overflow: hidden;
 
+    @include desktops {
+      height: 340px;
+    }
+
     &::after {
       content: '';
       position: absolute;
@@ -117,6 +143,10 @@ main section {
       z-index: 1;
 
       transition: all 1.3s ease-in-out;
+
+      @include desktops {
+        font-size: 40px;
+      }
     }
   }
 }
