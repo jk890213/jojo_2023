@@ -23,7 +23,6 @@
     <p>
       <span>仿製</span>
       <span>MOMO 壽喜燒</span>
-      <span>品牌形象官網</span>
     </p>
   </header>
 </template>

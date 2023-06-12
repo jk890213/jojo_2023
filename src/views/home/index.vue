@@ -4,7 +4,7 @@ import VideoBanner from './components/VideoBanner.vue'
 import FeatureSection from './components/FeatureSection.vue'
 import FoodSection from './components/FoodSection.vue'
 import LatestNews from './components/LatestNews.vue'
-import StoreInfo from './components/StoreInfo.vue'
+// import StoreInfo from './components/StoreInfo.vue'
 import { computed, onBeforeUnmount, onMounted, reactive, ref } from 'vue'
 
 const viewport = reactive({
@@ -45,7 +45,7 @@ const newsScetionScrollDistance = computed(
   () =>
     foodScetionScrollDistanceStatus.begin + (sectionTitleHeigh.value + foodContentHeigh.value) * 2
 )
-const storeInfoScetionScrollDistance = computed(() => newsScetionScrollDistance.value + 890)
+// const storeInfoScetionScrollDistance = computed(() => newsScetionScrollDistance.value + 890)
 </script>
 
 <template>
@@ -66,10 +66,10 @@ const storeInfoScetionScrollDistance = computed(() => newsScetionScrollDistance.
       :scrolledDistance="currentScrollDistance"
       :showTitleDistance="newsScetionScrollDistance"
     />
-    <StoreInfo
+    <!-- <StoreInfo
       :scrolledDistance="currentScrollDistance"
       :showTitleDistance="storeInfoScetionScrollDistance"
-    />
+    /> -->
   </main>
 </template>
 
@@ -99,9 +99,9 @@ main section {
     background-image: url('https://picsum.photos/1200/1200?4');
   }
 
-  &:nth-child(5) .title {
-    background-image: url('https://picsum.photos/1200/1200?5');
-  }
+  // &:nth-child(5) .title {
+  //   background-image: url('https://picsum.photos/1200/1200?5');
+  // }
 
   .title {
     height: 480px;
@@ -138,14 +138,24 @@ main section {
       opacity: 0;
       transform: translate(-50%, -50%);
       font-size: 60px;
+      text-align: center;
       letter-spacing: 40px;
       color: #fff;
       z-index: 1;
 
-      transition: all 1.3s ease-in-out;
+      transition: top 1.3s ease-in-out;
+
+      @include smallScreen {
+        width: 70%;
+      }
 
       @include desktops {
-        font-size: 40px;
+        font-size: 36px;
+      }
+
+      @include phone {
+        width: 100%;
+        font-size: 26px;
       }
     }
   }
