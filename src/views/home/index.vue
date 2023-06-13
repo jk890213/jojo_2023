@@ -139,7 +139,7 @@ main section {
       transform: translate(-50%, -50%);
       font-size: 60px;
       text-align: center;
-      letter-spacing: 40px;
+      letter-spacing: 10px;
       color: #fff;
       z-index: 1;
 

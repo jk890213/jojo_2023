@@ -140,7 +140,6 @@ header {
       width: 40px;
       margin: 20px 0 20px 20px;
       position: relative;
-      // background-color: #aca;
 
       &::before {
         content: '';

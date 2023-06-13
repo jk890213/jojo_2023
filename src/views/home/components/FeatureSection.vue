@@ -1,8 +1,13 @@
 <template>
   <section>
-    <div class="item" v-for="{ imgUrl, text, title, isShow } in description" :class="{
-      show: isShow
-    }" :key="imgUrl">
+    <div
+      class="item"
+      v-for="{ imgUrl, text, title, isShow } in description"
+      :class="{
+        show: isShow
+      }"
+      :key="imgUrl"
+    >
       <div class="pic">
         <img :src="imgUrl" alt="特色圖片" />
       </div>
@@ -26,7 +31,7 @@ const props = defineProps({
   singleSectionDistance: {
     type: Number,
     required: true
-  },
+  }
 })
 
 const description = reactive([
@@ -56,17 +61,22 @@ const description = reactive([
   }
 ])
 
-watch(() => props.scrolledDistance, () => {
-  const sectionDistance = props.singleSectionDistance
-  if (props.scrolledDistance > 1) description[0].isShow = true
-  if (props.scrolledDistance > sectionDistance) description[1].isShow = true
-  if (props.scrolledDistance > sectionDistance * 2) description[2].isShow = true
-  if (props.scrolledDistance > sectionDistance * 3) description[3].isShow = true
-})
+watch(
+  () => props.scrolledDistance,
+  () => {
+    const sectionDistance = props.singleSectionDistance
+    if (props.scrolledDistance > 1) description[0].isShow = true
+    if (props.scrolledDistance > sectionDistance) description[1].isShow = true
+    if (props.scrolledDistance > sectionDistance * 2) description[2].isShow = true
+    if (props.scrolledDistance > sectionDistance * 3) description[3].isShow = true
+  }
+)
 </script>
 
 <style lang="scss" scoped>
 section {
+  overflow: hidden;
+  
   .item.show {
     opacity: 1;
 
