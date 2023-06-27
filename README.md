@@ -1,6 +1,6 @@
 # jojo_food
 
-仿製 Mo-Mo-Paradise 首頁 (https://www.mo-mo.com.tw/)
+Recode: Mo-Mo-Paradise 首頁 ( https://www.mo-mo.com.tw/ )
 
 ## Project Setup
 
